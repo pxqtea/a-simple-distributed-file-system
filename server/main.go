@@ -1,5 +1,7 @@
 package main
 
+/* this part is written by project collaborator Rex Fernando */
+
 import (
 	pb "~/cs739/p2/proto"
 	"fmt"
