@@ -1,0 +1,13 @@
+*~
+*.swp
+*.pyc
+server/cache
+client/cache
+server/tmp
+client/tmp
+client/testmount
+*.o
+client/client
+server/main
+*.log
+*.pb.*

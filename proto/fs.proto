@@ -1,0 +1,63 @@
+syntax = "proto3";
+package proto;
+
+message Path {
+    string path = 1;
+}
+
+message DirListing {
+    repeated string names = 1;
+}
+
+message RenameParameters {
+    string old = 1;
+    string new = 2;
+}
+
+message Contents {
+    bytes contents = 1;
+}
+
+message PutParameters {
+    string path = 1;
+    bytes contents = 2;
+}
+
+message Success {
+    bool success = 1;
+}
+
+message FileInfo {
+    string name = 1;
+    int64 size = 2;
+    int64 modTime = 3;
+    bool isDir = 4;
+    // If file doesn't exist, but dir 
+    // exists, this will be true.
+    bool dirExists = 5;
+}
+
+service FileSystem {
+    //rpc GetAttr(bytes filename) returns (Attr) {}
+
+    // directory name -> success
+    rpc MkDir(Path) returns (Success) {}
+    // directory name -> success
+    rpc RmDir(Path) returns (Success) {}
+    // directory name -> directory listing
+    rpc ReadDir(Path) returns (DirListing) {}
+
+    // file name -> file info
+    rpc Stat(Path) returns (FileInfo) {}
+
+    // old filename, new filename -> success
+    rpc Rename(RenameParameters) returns (Success) {}
+    // filename -> success
+    rpc Unlink(Path) returns (Success) {}
+    
+    // filename -> contents
+    rpc Get(Path) returns (Contents) {}
+    // filename, contents -> success
+    rpc Put(PutParameters) returns (Success) {}
+}
+
